@@ -1,0 +1,23 @@
+osx_image: xcode8
+language: objective-c
+cache: bundler
+rvm:
+  - 2.3.1
+
+before_install:
+  - gem install xcpretty -N --no-ri --no-rdoc
+
+install:
+  - bundle install
+
+script:
+  - set -o pipefail
+  - xcodebuild test -workspace Example/Vleteren.xcworkspace -scheme Vleteren-Example -destination "platform=iOS Simulator,name=iPhone 7" | xcpretty
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: 'PATH="${TRAVIS_BUILD_DIR}/bin:$PATH" rvm "$TRAVIS_RUBY_VERSION" do bundle exec pod trunk push'
+  on:
+    tags: true
+    branch: master

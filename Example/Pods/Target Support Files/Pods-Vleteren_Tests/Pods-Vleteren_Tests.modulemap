@@ -1,0 +1,6 @@
+framework module Pods_Vleteren_Tests {
+  umbrella header "Pods-Vleteren_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}
